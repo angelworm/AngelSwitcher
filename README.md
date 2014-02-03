@@ -17,3 +17,7 @@ SSIDの切り替えを検出したらMacの「ネットワーク環境」も同�
 githubとかいい感じに配布する機能ないのかなぁ。
 
 [https://dl.dropboxusercontent.com/u/147847/AngelSwitcher.app.zip]
+
+その他
+----------
+アイコン丸はちょっとダサいな
