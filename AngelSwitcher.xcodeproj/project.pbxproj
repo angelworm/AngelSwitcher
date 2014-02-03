@@ -18,6 +18,8 @@
 		983C2FBB189BD0A4001599CF /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 983C2F9A189BD0A3001599CF /* Cocoa.framework */; };
 		983C2FC3189BD0A4001599CF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 983C2FC1189BD0A4001599CF /* InfoPlist.strings */; };
 		983C2FC5189BD0A4001599CF /* AngelSwitcherTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 983C2FC4189BD0A4001599CF /* AngelSwitcherTests.m */; };
+		983C2FCF189BF658001599CF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 983C2FCE189BF658001599CF /* SystemConfiguration.framework */; };
+		983C2FD1189F5AC2001599CF /* ServiceIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 983C2FD0189F5AC2001599CF /* ServiceIcon.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +52,8 @@
 		983C2FC0189BD0A4001599CF /* AngelSwitcherTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AngelSwitcherTests-Info.plist"; sourceTree = "<group>"; };
 		983C2FC2189BD0A4001599CF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		983C2FC4189BD0A4001599CF /* AngelSwitcherTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AngelSwitcherTests.m; sourceTree = "<group>"; };
+		983C2FCE189BF658001599CF /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		983C2FD0189F5AC2001599CF /* ServiceIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ServiceIcon.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				983C2FCF189BF658001599CF /* SystemConfiguration.framework in Frameworks */,
 				983C2F9B189BD0A3001599CF /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -95,6 +100,7 @@
 		983C2F99189BD0A3001599CF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				983C2FCE189BF658001599CF /* SystemConfiguration.framework */,
 				983C2F9A189BD0A3001599CF /* Cocoa.framework */,
 				983C2FB9189BD0A4001599CF /* XCTest.framework */,
 				983C2F9C189BD0A3001599CF /* Other Frameworks */,
@@ -119,6 +125,7 @@
 				983C2FAD189BD0A3001599CF /* AGAppDelegate.m */,
 				983C2FAF189BD0A3001599CF /* MainMenu.xib */,
 				983C2FB2189BD0A3001599CF /* Images.xcassets */,
+				983C2FD0189F5AC2001599CF /* ServiceIcon.png */,
 				983C2FA1189BD0A3001599CF /* Supporting Files */,
 			);
 			path = AngelSwitcher;
@@ -233,6 +240,7 @@
 			files = (
 				983C2FA5189BD0A3001599CF /* InfoPlist.strings in Resources */,
 				983C2FB3189BD0A3001599CF /* Images.xcassets in Resources */,
+				983C2FD1189F5AC2001599CF /* ServiceIcon.png in Resources */,
 				983C2FAB189BD0A3001599CF /* Credits.rtf in Resources */,
 				983C2FB1189BD0A3001599CF /* MainMenu.xib in Resources */,
 			);
