@@ -181,6 +181,7 @@ SCDynamicStoreRef AGCreateReachabilityNotificator() {
         
         [self.serviceMenu addItem:minet];
     }
+    CFRelease(sa);
 }
 
 -(IBAction)setNetwork:(NSMenuItem *)sender
