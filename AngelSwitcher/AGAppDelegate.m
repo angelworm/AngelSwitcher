@@ -49,7 +49,7 @@ SCDynamicStoreRef AGCreateReachabilityNotificator() {
     
     
     const CFStringRef watchKey[] = {
-        CFSTR("State:/Network/Interface/en1/AirPort")
+        CFSTR("State:/Network/Interface/.*/AirPort")
     };
     CFArrayRef key = CFArrayCreate(kCFAllocatorDefault, (const void **)watchKey,
                                    1, &kCFTypeArrayCallBacks);
