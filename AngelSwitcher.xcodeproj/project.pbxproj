@@ -20,6 +20,8 @@
 		983C2FC5189BD0A4001599CF /* AngelSwitcherTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 983C2FC4189BD0A4001599CF /* AngelSwitcherTests.m */; };
 		983C2FCF189BF658001599CF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 983C2FCE189BF658001599CF /* SystemConfiguration.framework */; };
 		983C2FD1189F5AC2001599CF /* ServiceIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 983C2FD0189F5AC2001599CF /* ServiceIcon.png */; };
+		983C2FD4189F8548001599CF /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 983C2FD2189F8548001599CF /* LICENSE */; };
+		983C2FD5189F8548001599CF /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 983C2FD3189F8548001599CF /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +56,8 @@
 		983C2FC4189BD0A4001599CF /* AngelSwitcherTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AngelSwitcherTests.m; sourceTree = "<group>"; };
 		983C2FCE189BF658001599CF /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		983C2FD0189F5AC2001599CF /* ServiceIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ServiceIcon.png; sourceTree = "<group>"; };
+		983C2FD2189F8548001599CF /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		983C2FD3189F8548001599CF /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +85,8 @@
 		983C2F8E189BD0A3001599CF = {
 			isa = PBXGroup;
 			children = (
+				983C2FD2189F8548001599CF /* LICENSE */,
+				983C2FD3189F8548001599CF /* README.md */,
 				983C2FA0189BD0A3001599CF /* AngelSwitcher */,
 				983C2FBE189BD0A4001599CF /* AngelSwitcherTests */,
 				983C2F99189BD0A3001599CF /* Frameworks */,
@@ -238,8 +244,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				983C2FD4189F8548001599CF /* LICENSE in Resources */,
 				983C2FA5189BD0A3001599CF /* InfoPlist.strings in Resources */,
 				983C2FB3189BD0A3001599CF /* Images.xcassets in Resources */,
+				983C2FD5189F8548001599CF /* README.md in Resources */,
 				983C2FD1189F5AC2001599CF /* ServiceIcon.png in Resources */,
 				983C2FAB189BD0A3001599CF /* Credits.rtf in Resources */,
 				983C2FB1189BD0A3001599CF /* MainMenu.xib in Resources */,
