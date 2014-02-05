@@ -9,6 +9,13 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>AngelSwitcherHelper.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
@@ -18,6 +25,16 @@
 			<true/>
 		</dict>
 		<key>983C2FB7189BD0A4001599CF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>983C2FDB18A2498C001599CF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>983C2FF518A2498C001599CF</key>
 		<dict>
 			<key>primary</key>
 			<true/>

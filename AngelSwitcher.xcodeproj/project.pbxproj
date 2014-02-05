@@ -49,7 +49,7 @@
 		983C2FAD189BD0A3001599CF /* AGAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGAppDelegate.m; sourceTree = "<group>"; };
 		983C2FB0189BD0A3001599CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		983C2FB2189BD0A3001599CF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		983C2FB8189BD0A4001599CF /* AngelSwitcherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AngelSwitcherTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		983C2FB8189BD0A4001599CF /* AngelSwitcherTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AngelSwitcherTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		983C2FB9189BD0A4001599CF /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		983C2FC0189BD0A4001599CF /* AngelSwitcherTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AngelSwitcherTests-Info.plist"; sourceTree = "<group>"; };
 		983C2FC2189BD0A4001599CF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -58,6 +58,7 @@
 		983C2FD0189F5AC2001599CF /* ServiceIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ServiceIcon.png; sourceTree = "<group>"; };
 		983C2FD2189F8548001599CF /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		983C2FD3189F8548001599CF /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		983C300F18A24EED001599CF /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,8 +88,8 @@
 			children = (
 				983C2FD2189F8548001599CF /* LICENSE */,
 				983C2FD3189F8548001599CF /* README.md */,
-				983C2FA0189BD0A3001599CF /* AngelSwitcher */,
-				983C2FBE189BD0A4001599CF /* AngelSwitcherTests */,
+				983C2FA0189BD0A3001599CF /* AngelSwitcherHelper */,
+				983C2FBE189BD0A4001599CF /* AngelSwitcherHelperTests */,
 				983C2F99189BD0A3001599CF /* Frameworks */,
 				983C2F98189BD0A3001599CF /* Products */,
 			);
@@ -98,7 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				983C2F97189BD0A3001599CF /* AngelSwitcher.app */,
-				983C2FB8189BD0A4001599CF /* AngelSwitcherTests.xctest */,
+				983C2FB8189BD0A4001599CF /* AngelSwitcherTest.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -106,6 +107,7 @@
 		983C2F99189BD0A3001599CF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				983C300F18A24EED001599CF /* ServiceManagement.framework */,
 				983C2FCE189BF658001599CF /* SystemConfiguration.framework */,
 				983C2F9A189BD0A3001599CF /* Cocoa.framework */,
 				983C2FB9189BD0A4001599CF /* XCTest.framework */,
@@ -124,7 +126,7 @@
 			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
-		983C2FA0189BD0A3001599CF /* AngelSwitcher */ = {
+		983C2FA0189BD0A3001599CF /* AngelSwitcherHelper */ = {
 			isa = PBXGroup;
 			children = (
 				983C2FAC189BD0A3001599CF /* AGAppDelegate.h */,
@@ -134,6 +136,7 @@
 				983C2FD0189F5AC2001599CF /* ServiceIcon.png */,
 				983C2FA1189BD0A3001599CF /* Supporting Files */,
 			);
+			name = AngelSwitcherHelper;
 			path = AngelSwitcher;
 			sourceTree = "<group>";
 		};
@@ -149,12 +152,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		983C2FBE189BD0A4001599CF /* AngelSwitcherTests */ = {
+		983C2FBE189BD0A4001599CF /* AngelSwitcherHelperTests */ = {
 			isa = PBXGroup;
 			children = (
 				983C2FC4189BD0A4001599CF /* AngelSwitcherTests.m */,
 				983C2FBF189BD0A4001599CF /* Supporting Files */,
 			);
+			name = AngelSwitcherHelperTests;
 			path = AngelSwitcherTests;
 			sourceTree = "<group>";
 		};
@@ -187,9 +191,9 @@
 			productReference = 983C2F97189BD0A3001599CF /* AngelSwitcher.app */;
 			productType = "com.apple.product-type.application";
 		};
-		983C2FB7189BD0A4001599CF /* AngelSwitcherTests */ = {
+		983C2FB7189BD0A4001599CF /* AngelSwitcherTest */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 983C2FCB189BD0A4001599CF /* Build configuration list for PBXNativeTarget "AngelSwitcherTests" */;
+			buildConfigurationList = 983C2FCB189BD0A4001599CF /* Build configuration list for PBXNativeTarget "AngelSwitcherTest" */;
 			buildPhases = (
 				983C2FB4189BD0A4001599CF /* Sources */,
 				983C2FB5189BD0A4001599CF /* Frameworks */,
@@ -200,9 +204,9 @@
 			dependencies = (
 				983C2FBD189BD0A4001599CF /* PBXTargetDependency */,
 			);
-			name = AngelSwitcherTests;
+			name = AngelSwitcherTest;
 			productName = AngelSwitcherTests;
-			productReference = 983C2FB8189BD0A4001599CF /* AngelSwitcherTests.xctest */;
+			productReference = 983C2FB8189BD0A4001599CF /* AngelSwitcherTest.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -234,7 +238,7 @@
 			projectRoot = "";
 			targets = (
 				983C2F96189BD0A3001599CF /* AngelSwitcher */,
-				983C2FB7189BD0A4001599CF /* AngelSwitcherTests */,
+				983C2FB7189BD0A4001599CF /* AngelSwitcherTest */,
 			);
 		};
 /* End PBXProject section */
@@ -344,6 +348,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				"COPY_PHASE_STRIP[sdk=*]" = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -481,14 +486,16 @@
 				983C2FCA189BD0A4001599CF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
-		983C2FCB189BD0A4001599CF /* Build configuration list for PBXNativeTarget "AngelSwitcherTests" */ = {
+		983C2FCB189BD0A4001599CF /* Build configuration list for PBXNativeTarget "AngelSwitcherTest" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				983C2FCC189BD0A4001599CF /* Debug */,
 				983C2FCD189BD0A4001599CF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

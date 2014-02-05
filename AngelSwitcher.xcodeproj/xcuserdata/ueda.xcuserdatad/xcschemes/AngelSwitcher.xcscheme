@@ -33,6 +33,16 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "983C2FB7189BD0A4001599CF"
+               BuildableName = "AngelSwitcherTest.xctest"
+               BlueprintName = "AngelSwitcherTest"
+               ReferencedContainer = "container:AngelSwitcher.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "983C2FF518A2498C001599CF"
                BuildableName = "AngelSwitcherTests.xctest"
                BlueprintName = "AngelSwitcherTests"
                ReferencedContainer = "container:AngelSwitcher.xcodeproj">

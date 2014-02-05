@@ -103,6 +103,8 @@ SCDynamicStoreRef AGCreateReachabilityNotificator() {
     [statusMenu setTitle:@""];
     [statusMenu setImage:[NSImage imageNamed:@"ServiceIcon"]];
     [statusMenu setMenu:self.serviceMenu];
+    
+    self.launchOnLoginItem.state = (self.launchOnLogin ? NSOnState : NSOffState);
 }
 
 - (void)setUpNetworkConfig
@@ -119,6 +121,70 @@ SCDynamicStoreRef AGCreateReachabilityNotificator() {
     CFRelease(dr);
     CFRelease(ik);
 
+}
+
+- (void)setLaunchOnLogin:(BOOL)enable
+{
+    CFURLRef url = (__bridge CFURLRef)[NSURL fileURLWithPath:NSBundle.mainBundle.bundlePath];
+
+    LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
+    if(!loginItems) return;
+
+    if(enable) {
+        LSSharedFileListItemRef item = LSSharedFileListInsertItemURL(loginItems, kLSSharedFileListItemLast,
+                                                                     NULL, NULL, url, NULL, NULL);
+        if (item) CFRelease(item);
+    } else {
+        UInt32 seedValue;
+        CFArrayRef lis = LSSharedFileListCopySnapshot(loginItems, &seedValue);
+        for(int i = 0; i < CFArrayGetCount(lis); i++) {
+            LSSharedFileListItemRef item = (LSSharedFileListItemRef)CFArrayGetValueAtIndex(lis, i);
+            CFURLRef url2;
+            
+            if (LSSharedFileListItemResolve(item, 0, &url2, NULL) == noErr) {
+                CFStringRef path1 = CFURLCopyPath(url);
+                CFStringRef path2 = CFURLCopyPath(url2);
+                if(CFStringHasPrefix(path2, path1)){
+                    LSSharedFileListItemRemove(loginItems, item);
+                }
+                CFRelease(path1);
+                CFRelease(path2);
+            }
+        }
+        CFRelease(lis);
+    }
+
+    CFRelease(loginItems);
+}
+
+- (BOOL)launchOnLogin
+{
+    CFURLRef url = (__bridge CFURLRef)[NSURL fileURLWithPath:NSBundle.mainBundle.bundlePath];
+    
+    LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
+    BOOL ret = NO;
+    if(!loginItems) return ret;
+    
+    UInt32 seedValue;
+    CFArrayRef lis = LSSharedFileListCopySnapshot(loginItems, &seedValue);
+    for(int i = 0; i < CFArrayGetCount(lis); i++) {
+        LSSharedFileListItemRef item = (LSSharedFileListItemRef)CFArrayGetValueAtIndex(lis, i);
+        CFURLRef url2;
+        
+        if (LSSharedFileListItemResolve(item, 0, &url2, NULL) == noErr) {
+            CFStringRef path1 = CFURLCopyPath(url);
+            CFStringRef path2 = CFURLCopyPath(url2);
+            if(CFStringHasPrefix(path2, path1)){
+                ret = YES;
+            }
+            CFRelease(path1);
+            CFRelease(path2);
+        }
+    }
+    CFRelease(lis);
+    
+    CFRelease(loginItems);
+    return ret;
 }
 
 - (void)notify:(NSNotification *)notification
@@ -150,7 +216,7 @@ SCDynamicStoreRef AGCreateReachabilityNotificator() {
 
 #pragma mark networkTable
 
--(void)updateNetworkTable
+- (void)updateNetworkTable
 {
     SCPreferencesRef pref = SCPreferencesCreate(kCFAllocatorDefault, CFSTR("Angelworm"), NULL);
     CFArrayRef sa = SCNetworkSetCopyAll(pref);
@@ -182,7 +248,7 @@ SCDynamicStoreRef AGCreateReachabilityNotificator() {
     return ([ar count] > 0 ? [ar objectAtIndex:0] : nil);
 }
 
--(BOOL)changeNetwork:(NSString *)network
+- (BOOL)changeNetwork:(NSString *)network
 {
 //    NSDictionary *pref = @{@"UserDefinedName": network};
 //    return SCDynamicStoreSetValue(ds, CFSTR("Setup:/"), (__bridge CFPropertyListRef)pref);
@@ -209,20 +275,21 @@ SCDynamicStoreRef AGCreateReachabilityNotificator() {
 
 }
 
--(NSString *)getSSID
+- (NSString *)getSSID
 {
     return @"";
 }
 
 #pragma mark UI and actions
 
--(void)updateMenu:(NSString *)ssid network:(NSString *)network
+- (void)updateMenu:(NSString *)ssid network:(NSString *)network
 {
     NSMenuItem *mi = [self.serviceMenu itemWithTag:kAGSSIDNameTag];
     [mi setTitle:ssid];
     
-    while(self.serviceMenu.numberOfItems > 3) {
-        [self.serviceMenu removeItemAtIndex:3];
+    int count = [self.serviceMenu indexOfItem:mi];
+    while(self.serviceMenu.numberOfItems > count) {
+        [self.serviceMenu removeItemAtIndex:count];
     }
     
     if([ssid isEqualToString:@"NOT FOUND"]) return;
@@ -245,7 +312,7 @@ SCDynamicStoreRef AGCreateReachabilityNotificator() {
     CFRelease(sa);
 }
 
--(IBAction)setNetwork:(NSMenuItem *)sender
+- (IBAction)setNetwork:(NSMenuItem *)sender
 {
     NSString *network = sender.title;
     NSString *ssid    = [[self.serviceMenu itemAtIndex:2] title];
@@ -259,6 +326,12 @@ SCDynamicStoreRef AGCreateReachabilityNotificator() {
     [self changeNetwork:network];
     
     [self updateMenu:ssid network:network];
+}
+
+- (IBAction)toggleLaunchOnLogin:(NSMenuItem *)sender {
+    BOOL enable = sender.state != NSOnState;
+    self.launchOnLogin = enable;
+    sender.state = (enable ? NSOnState : NSOffState);
 }
 
 @end

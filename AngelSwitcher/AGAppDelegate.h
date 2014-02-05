@@ -13,4 +13,5 @@
 @property (assign) IBOutlet NSWindow *window;
 @property (weak) IBOutlet NSMenu *serviceMenu;
 @property NSStatusItem *statusMenu;
+@property (weak) IBOutlet NSMenuItem *launchOnLoginItem;
 @end
