@@ -27,8 +27,6 @@ static void AGReachabilityNotificatorCallback(SCDynamicStoreRef ds,
     
     SSIDName = SSIDName ? SSIDName : CFSTR("NOT FOUND");
     
-    CFShow(SSIDName);
-    
     NSDictionary *inf = @{@"SSID":   (__bridge NSString *)SSIDName,
                           @"Network":(__bridge NSString *)networkName};
     
@@ -56,11 +54,9 @@ SCDynamicStoreRef AGCreateReachabilityNotificator() {
 
     if (!SCDynamicStoreSetNotificationKeys(ds, NULL, key))
     {
-        fprintf(stderr, "SCDynamicStoreSetNotificationKeys() failed: %s", SCErrorString(SCError()));
+        NSLog(@"SCDynamicStoreSetNotificationKeys() failed: %s", SCErrorString(SCError()));
         CFRelease(key);
         CFRelease(ds);
-        ds = NULL;
-        
         return NULL;
     }
     CFRelease(key);
@@ -75,6 +71,7 @@ SCDynamicStoreRef AGCreateReachabilityNotificator() {
 
 @implementation AGAppDelegate {
     SCDynamicStoreRef ds;
+    NSDictionary* networkIDTable; // (NSString *uuid, NSString *name)
 }
 
 @synthesize statusMenu;
@@ -113,6 +110,8 @@ SCDynamicStoreRef AGCreateReachabilityNotificator() {
     NSString *ssid    = [notification.object objectForKey:@"SSID"];
     NSLog(@"Change SSID: %@(%@)", ssid, network);
     
+    [self updateNetworkTable];
+    
     [self updateMenu:ssid network:network];
     
     if([ssid isEqualToString:@"NOT FOUND"]) return;
@@ -132,16 +131,54 @@ SCDynamicStoreRef AGCreateReachabilityNotificator() {
     [[NSUserDefaults standardUserDefaults] setValue:sd forKey:@"AGSSIDTable"];
 }
 
+#pragma mark networkTable
+
+-(void)updateNetworkTable
+{
+    SCPreferencesRef pref = SCPreferencesCreate(kCFAllocatorDefault, CFSTR("Angelworm"), NULL);
+    CFArrayRef sa = SCNetworkSetCopyAll(pref);
+    NSMutableDictionary *nt = [NSMutableDictionary dictionary];
+    
+    for(int i = 0; i < CFArrayGetCount(sa); i++) {
+        SCNetworkSetRef ns = CFArrayGetValueAtIndex(sa, i);
+        NSString *name = (__bridge NSString *)(SCNetworkSetGetName(ns));
+        NSString *uuid = (__bridge NSString *)(SCNetworkSetGetSetID(ns));
+        
+        [nt setObject:name forKey:uuid];
+    }
+    
+    networkIDTable = nt;
+    
+    CFRelease(sa);
+    CFRelease(pref);
+}
+
+
+- (NSString *)getNetworkID:(NSString *)networkName
+{
+    NSArray *ar = [networkIDTable allKeysForObject:networkName];
+    return ([ar count] > 0 ? [ar objectAtIndex:0] : nil);
+}
+
+- (NSString *)getNetworkName:(NSString *)networkID
+{
+    return [networkIDTable objectForKey:networkID];
+}
+
 -(BOOL)changeNetwork:(NSString *)network
 {
 //    NSDictionary *pref = @{@"UserDefinedName": network};
 //    return SCDynamicStoreSetValue(ds, CFSTR("Setup:/"), (__bridge CFPropertyListRef)pref);
+    [self updateNetworkTable];
+    NSString *networkID = [self getNetworkID:network];
+    
+    networkID = (!networkID ? network : networkID);
     
     NSTask *task = [[NSTask alloc] init];
     NSPipe *pipe = [[NSPipe alloc] init];
     
     [task setLaunchPath:@"/usr/sbin/scselect"];
-    [task setArguments:@[network]];
+    [task setArguments:@[networkID]];
     [task setStandardOutput:pipe];
     [task launch];
     
@@ -188,9 +225,9 @@ SCDynamicStoreRef AGCreateReachabilityNotificator() {
 {
     NSString *network = sender.title;
     NSString *ssid    = [[self.serviceMenu itemAtIndex:2] title];
-
+    
     NSLog(@"Recieved Network Change: %@(SSID:%@)", network, ssid);
-
+    
     NSMutableDictionary *sd = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:@"AGSSIDTable"]];
     [sd setValue:network forKey:ssid];
     [[NSUserDefaults standardUserDefaults] setValue:sd forKey:@"AGSSIDTable"];
