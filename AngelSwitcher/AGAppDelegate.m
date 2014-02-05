@@ -192,6 +192,8 @@ SCDynamicStoreRef AGCreateReachabilityNotificator() {
 
 }
 
+#pragma mark UI and actions
+
 -(void)updateMenu:(NSString *)ssid network:(NSString *)network
 {
     NSMenuItem *mi = [self.serviceMenu itemWithTag:kAGSSIDNameTag];
