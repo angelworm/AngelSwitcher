@@ -92,7 +92,7 @@ SCDynamicStoreRef AGCreateReachabilityNotificator() {
     ds = AGCreateReachabilityNotificator();
     
     [self setupStatusItem];
-    [self setUpNetworkConfig];
+    [self setupNetworkConfig];
 }
 
 - (void)setupStatusItem
@@ -107,7 +107,7 @@ SCDynamicStoreRef AGCreateReachabilityNotificator() {
     self.launchOnLoginItem.state = (self.launchOnLogin ? NSOnState : NSOffState);
 }
 
-- (void)setUpNetworkConfig
+- (void)setupNetworkConfig
 {
     if(!ds) return;
     CFStringRef ik = SCDynamicStoreKeyCreateNetworkGlobalEntity(NULL, kSCDynamicStoreDomainState, kSCEntNetIPv4);
@@ -287,7 +287,7 @@ SCDynamicStoreRef AGCreateReachabilityNotificator() {
     NSMenuItem *mi = [self.serviceMenu itemWithTag:kAGSSIDNameTag];
     [mi setTitle:ssid];
     
-    int count = [self.serviceMenu indexOfItem:mi];
+    int count = [self.serviceMenu indexOfItem:mi] + 1;
     while(self.serviceMenu.numberOfItems > count) {
         [self.serviceMenu removeItemAtIndex:count];
     }
@@ -315,7 +315,7 @@ SCDynamicStoreRef AGCreateReachabilityNotificator() {
 - (IBAction)setNetwork:(NSMenuItem *)sender
 {
     NSString *network = sender.title;
-    NSString *ssid    = [[self.serviceMenu itemAtIndex:2] title];
+    NSString *ssid    = [[self.serviceMenu itemWithTag:kAGSSIDNameTag] title];
     
     NSLog(@"Recieved Network Change: %@(SSID:%@)", network, ssid);
     
