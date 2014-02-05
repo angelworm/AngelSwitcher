@@ -71,7 +71,7 @@ SCDynamicStoreRef AGCreateReachabilityNotificator() {
 
 @implementation AGAppDelegate {
     SCDynamicStoreRef ds;
-    NSDictionary* networkIDTable; // (NSString *uuid, NSString *name)
+    NSDictionary* networkIDTable; // (NSString *name, NSString *uuid)
 }
 
 @synthesize statusMenu;
@@ -156,13 +156,13 @@ SCDynamicStoreRef AGCreateReachabilityNotificator() {
 
 - (NSString *)getNetworkID:(NSString *)networkName
 {
-    NSArray *ar = [networkIDTable allKeysForObject:networkName];
-    return ([ar count] > 0 ? [ar objectAtIndex:0] : nil);
+    return [networkIDTable objectForKey:networkName];
 }
 
 - (NSString *)getNetworkName:(NSString *)networkID
 {
-    return [networkIDTable objectForKey:networkID];
+    NSArray *ar = [networkIDTable allKeysForObject:networkID];
+    return ([ar count] > 0 ? [ar objectAtIndex:0] : nil);
 }
 
 -(BOOL)changeNetwork:(NSString *)network
