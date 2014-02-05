@@ -21,7 +21,7 @@ static void AGReachabilityNotificatorCallback(SCDynamicStoreRef ds,
     CFStringRef key = CFArrayGetValueAtIndex(changedKeys, 0);
     CFDictionaryRef SSIDConf     = SCDynamicStoreCopyValue(ds, key);
     CFDictionaryRef newtworkConf = SCDynamicStoreCopyValue(ds, CFSTR("Setup:/"));
-
+    
     CFStringRef networkName = CFDictionaryGetValue(newtworkConf, CFSTR("UserDefinedName"));
     CFStringRef SSIDName =    CFDictionaryGetValue(SSIDConf, CFSTR("SSID_STR"));
     
@@ -92,6 +92,7 @@ SCDynamicStoreRef AGCreateReachabilityNotificator() {
     ds = AGCreateReachabilityNotificator();
     
     [self setupStatusItem];
+    [self setUpNetworkConfig];
 }
 
 - (void)setupStatusItem
@@ -102,6 +103,22 @@ SCDynamicStoreRef AGCreateReachabilityNotificator() {
     [statusMenu setTitle:@""];
     [statusMenu setImage:[NSImage imageNamed:@"ServiceIcon"]];
     [statusMenu setMenu:self.serviceMenu];
+}
+
+- (void)setUpNetworkConfig
+{
+    if(!ds) return;
+    CFStringRef ik = SCDynamicStoreKeyCreateNetworkGlobalEntity(NULL, kSCDynamicStoreDomainState, kSCEntNetIPv4);
+    CFDictionaryRef dr = (CFDictionaryRef)SCDynamicStoreCopyValue(ds, ik);
+    CFStringRef pif = (CFStringRef)CFDictionaryGetValue(dr, kSCDynamicStorePropNetPrimaryInterface);
+    
+    NSLog(@"PrimaryInterface is %@.", pif);
+    NSString *key = [NSString stringWithFormat:@"State:/Network/Interface/%@/AirPort", pif];
+    AGReachabilityNotificatorCallback(ds, CFBridgingRetain(@[key]), NULL);
+
+    CFRelease(dr);
+    CFRelease(ik);
+
 }
 
 - (void)notify:(NSNotification *)notification
@@ -190,6 +207,11 @@ SCDynamicStoreRef AGCreateReachabilityNotificator() {
     
     return YES;
 
+}
+
+-(NSString *)getSSID
+{
+    return @"";
 }
 
 #pragma mark UI and actions
